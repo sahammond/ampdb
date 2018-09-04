@@ -24,8 +24,8 @@ def builder(plates, start, name, assay, isolate, layout, exp_date, mic):
             row_num = 0
             for line in infile:
                 this_row = row[row_num]
-                pep = segment[row_num]
-                pep = [x.split(' ')[0] for x in pep][0]
+                pep = segment[row_num].split(' ')[0]
+#                pep = [x.split(' ')[1] for x in pep]
                 this_mic = plate_mic[row_num]
                 # note that blood is hard-coded to NA right now
                 buff = [str(rid), str(assay), str(isolate), '1', str(pep), name, 'assayed', 'experiment',
