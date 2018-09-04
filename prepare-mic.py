@@ -25,14 +25,11 @@ def builder(plates, start, name, assay, isolate, layout, exp_date, mic):
             for line in infile:
                 this_row = row[row_num]
                 pep = segment[row_num].split(' ')[0]
-#                pep = [x.split(' ')[1] for x in pep]
                 this_mic = plate_mic[row_num]
                 # note that blood is hard-coded to NA right now
                 buff = [str(rid), str(assay), str(isolate), '1', str(pep), name, 'assayed', 'experiment',
                         str(readno), exp_date, this_row]
                 rec = line.strip().split(' ')
-#                rec_form = ["'" + x + "'" for x in rec]
-                #buff.extend(rec_form)
                 buff.extend(rec)
                 buff.extend([this_mic, 'NA'])
                 buff_form = buff[:5] + ["'" + x + "'" for x in buff[5:]] + ['NULL', 'NULL);']
@@ -54,20 +51,6 @@ def builder(plates, start, name, assay, isolate, layout, exp_date, mic):
                 yield outbuff
 
 
-#def starter():
-#    """produce the head of the insert file"""
-#    outbuff = '\n'.join(['LOCK TABLES `mic` WRITE;', '/*!40000 ALTER TABLE `mic` DISABLE KEYS */;'])
-#
-#    return outbuff
-#
-#
-#def finisher():
-#    """produce the end of the insert file"""
-#    outbuff = '\n'.join(['/*!40000 ALTER TABLE `mic` ENABLE KEYS */;', 'UNLOCK TABLES;'])
-#
-#    return outbuff
-
-
 def load_layout(layout_file):
     lay = []
     with open(layout_file, 'r') as infile:
@@ -84,6 +67,7 @@ def load_mic(mic_file):
             mic.append(line.strip())
 
     return mic
+
 
 def main():
     parser = argparse.ArgumentParser(description='add plates of mic data to the mysql db')
@@ -104,27 +88,11 @@ def main():
                         help='single column mic values with blanks and mic > 256 as 0')
     args = parser.parse_args()
 
-#    print starter()
-
     layout = load_layout(args.layout)
     mic = load_mic(args.mic)
     for line in builder(args.plate, args.start, args.name, args.assay, args.isolate,
                         layout, args.date, mic):
         print line
-
-
-#    plateno = 1
-#    for plate in args.plate:
-#        seg = plateno * 8
-#        startseg = seg - 8
-#        segment = layout[startseg:seg]
-#        with open(plate, 'r') as infile:
-#            for line in builder(infile, args.start, args.name, args.assay, args.isolate,
-#                                segment, args.date):
-##            for line in builder(infile, args.start, args.name, args.assay, args.isolate,
-##                                TESTPEP, args.date):
-#                print line
-#        plateno += 1
 
 
 if __name__ == '__main__':
