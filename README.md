@@ -8,6 +8,7 @@
 
    * paste combined mic/mbc from excel file into vim
    * use awk to separate values into distinct files
+   * use mic-formatter.awk to insert 0s for the empty rows
 
 6. create replicate-reads-wAverage.txt
 7. prepare-mic.py
