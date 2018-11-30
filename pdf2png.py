@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""convert and split pdf of plate scans to png files"""
+# Written by Zhuyi Xue, BCGSC
+# Modified by S. Austin Hammond, BCGSC
 
 import os
 import sys
