@@ -49,6 +49,9 @@ def plot_bounding_box(img_file, predicted_texts):
 
 
 """Detects document features in an image."""
+# Written by Zhuyi Xue, BCGSC
+# Modified by S. Austin Hammondm, BCGSC
+
 client = vision.ImageAnnotatorClient()
 
 for k, img_file in enumerate(img_files):
